@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ahzam, Let's Explore Sikkim! 🏔️✨</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Canvas Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Playfair+Display:ital,wght@0,700;1,600&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    },
+                    animation: {
+                        'spin-slow': 'spin 12s linear infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'bounce-gentle': 'bounceGentle 2s infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-15px)' },
+                        },
+                        bounceGentle: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-6px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar & glassmorphism utilities */
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 40%, #311042 100%);
+            color: #f8fafc;
+            overflow-x: hidden;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
+            border-color: rgba(244, 114, 182, 0.3);
+            box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #fbbf24 0%, #f43f5e 50%, #c084fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .text-gradient-gold {
+            background: linear-gradient(135deg, #fef08a 0%, #f59e0b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Vinyl disc animation controls */
+        .vinyl-paused {
+            animation-play-state: paused !important;
+        }
+
+        /* Audio Equalizer animation */
+        .eq-bar {
+            transition: height 0.2s ease;
+        }
+    </style>
+</head>
+<body class="min-h-screen relative font-sans antialiased selection:bg-rose-500 selection:text-white">
+
+    <!-- Ambient Animated Background Elements -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <!-- Floating Mountain Glows -->
+        <div class="absolute -top-40 -left-40 w-96 h-96 bg-rose-500/20 rounded-full blur-3xl animate-float"></div>
+        <div class="absolute top-1/2 -right-40 w-96 h-96 bg-amber-500/15 rounded-full blur-3xl animate-float" style="animation-delay: -2s;"></div>
+        <div class="absolute -bottom-20 left-1/3 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl animate-float" style="animation-delay: -4s;"></div>
+        
+        <!-- SVG Mountain Silhouette Layer at bottom -->
+        <div class="absolute bottom-0 left-0 right-0 opacity-20">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" class="w-full h-auto" preserveAspectRatio="none">
+                <path fill="#ffffff" fill-opacity="1" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,224C672,245,768,267,864,250.7C960,235,1056,181,1152,165.3C1248,149,1344,171,1392,181.3L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            </svg>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <div class="relative z-10 max-w-5xl mx-auto px-4 py-8 md:py-12 flex flex-col items-center">
+
+        <!-- HEADER / BRANDING -->
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel text-amber-300 text-sm font-semibold tracking-wide uppercase mb-6 shadow-lg animate-bounce-gentle">
+            <i class="fa-solid fa-compass text-amber-400"></i> The Ultimate Road Trip Awaits
+        </div>
+
+        <!-- MAIN TITLE FOR AHZAM -->
+        <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold text-center tracking-tight mb-4 leading-tight">
+            Ahzam, Let's Escape to <br>
+            <span class="text-gradient font-serif italic">Sikkim! 🏔️✨</span>
+        </h1>
+
+        <p class="text-lg md:text-xl text-slate-300 text-center max-w-2xl mb-10 leading-relaxed font-light">
+            Snow-capped peaks, mist-covered valleys, steamy momos, and endless mountain roads are calling us. Get ready for an unforgettable journey!
+        </p>
+
+        <!-- MUSIC PLAYER FLOATING WIDGET / DISK PLAYER -->
+        <div class="w-full max-w-md glass-panel rounded-3xl p-5 mb-12 shadow-2xl relative overflow-hidden group">
+            <div class="flex items-center justify-between gap-4">
+                
+                <!-- Animated Vinyl Cassette Disc -->
+                <div class="relative flex-shrink-0">
+                    <div id="vinylDisk" class="w-20 h-20 rounded-full bg-slate-900 border-4 border-slate-700 shadow-xl flex items-center justify-center animate-spin-slow vinyl-paused relative overflow-hidden">
+                        <!-- Grooves -->
+                        <div class="absolute inset-1 rounded-full border border-slate-800"></div>
+                        <div class="absolute inset-3 rounded-full border border-slate-800/80"></div>
+                        <div class="absolute inset-5 rounded-full border border-slate-800/50"></div>
+                        <!-- Center Label -->
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-rose-500 to-amber-500 flex items-center justify-center border-2 border-slate-900 z-10">
+                            <div class="w-2 h-2 rounded-full bg-slate-900"></div>
+                        </div>
+                    </div>
+                    <!-- Music Note Badge -->
+                    <div class="absolute -bottom-1 -right-1 bg-amber-400 text-slate-900 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shadow-md">
+                        <i class="fa-solid fa-music"></i>
+                    </div>
+                </div>
+
+                <!-- Song Info & Controls -->
+                <div class="flex-grow min-w-0">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span id="playingStatusBadge" class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-slate-700 text-slate-300">
+                            Paused
+                        </span>
+                        <span class="text-xs text-slate-400 truncate">Background Score</span>
+                    </div>
+                    <h3 class="font-bold text-base text-white truncate">Mann Jogiya / Mann Jo</h3>
+                    <p class="text-xs text-amber-300/80 truncate mb-2">Acoustic Road Trip Vibe</p>
+
+                    <!-- Equalizer Bars -->
+                    <div class="flex items-end gap-1 h-3" id="equalizer">
+                        <div class="w-1 bg-rose-400 rounded-full h-1 eq-bar"></div>
+                        <div class="w-1 bg-amber-400 rounded-full h-1 eq-bar"></div>
+                        <div class="w-1 bg-purple-400 rounded-full h-1 eq-bar"></div>
+                        <div class="w-1 bg-pink-400 rounded-full h-1 eq-bar"></div>
+                        <div class="w-1 bg-emerald-400 rounded-full h-1 eq-bar"></div>
+                    </div>
+                </div>
+
+                <!-- Play / Pause Button -->
+                <button id="playAudioBtn" onclick="toggleAudio()" class="w-14 h-14 rounded-2xl bg-gradient-to-r from-rose-500 to-amber-500 hover:from-rose-600 hover:to-amber-600 text-white flex items-center justify-center text-xl shadow-lg hover:scale-105 active:scale-95 transition-all flex-shrink-0">
+                    <i id="playIcon" class="fa-solid fa-play ml-1"></i>
+                </button>
+            </div>
+
+            <!-- Notice for Audio -->
+            <p class="text-[11px] text-slate-400 text-center mt-3 pt-2 border-t border-white/5">
+                <i class="fa-solid fa-volume-high text-amber-400/70 mr-1"></i> Press play to set the Sikkim road trip mood!
+            </p>
+        </div>
+
+        <!-- AUDIO ELEMENT (Synth / Royalty-Free Mountain Vibe Audio Stream + Web Audio Fallback) -->
+        <audio id="bgAudio" loop preload="auto">
+            <!-- Chill relaxing acoustic background audio stream -->
+            <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3" type="audio/mpeg">
+        </audio>
+
+
+        <!-- PERSONAL MESSAGE SECTION -->
+        <div class="w-full glass-panel rounded-3xl p-6 md:p-8 mb-12 shadow-2xl border-t border-white/20">
+            <div class="flex items-start gap-4">
+                <div class="hidden sm:flex w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-300 items-center justify-center text-2xl flex-shrink-0">
+                    <i class="fa-solid fa-quote-left"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-white mb-3">Hey Ahzam! 👋</h2>
+                    <p class="text-slate-200 leading-relaxed mb-4 text-base md:text-lg">
+                        Life is too short to stay stuck in routine. We are planning an epic road trip through the breathtaking landscapes of <strong class="text-amber-300">Sikkim</strong>—where clouds float below the roads, hot tea tastes heavenly in chilly air, and the vibes are unmatched.
+                    </p>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6">
+                        <div class="bg-white/5 rounded-xl p-3 text-center border border-white/5">
+                            <span class="text-2xl mb-1 block">🥟</span>
+                            <span class="text-xs font-semibold text-slate-300">Hot Momos</span>
+                        </div>
+                        <div class="bg-white/5 rounded-xl p-3 text-center border border-white/5">
+                            <span class="text-2xl mb-1 block">☕</span>
+                            <span class="text-xs font-semibold text-slate-300">Cafe Hopping</span>
+                        </div>
+                        <div class="bg-white/5 rounded-xl p-3 text-center border border-white/5">
+                            <span class="text-2xl mb-1 block">🏔️</span>
+                            <span class="text-xs font-semibold text-slate-300">Snowy Valleys</span>
+                        </div>
+                        <div class="bg-white/5 rounded-xl p-3 text-center border border-white/5">
+                            <span class="text-2xl mb-1 block">🚗</span>
+                            <span class="text-xs font-semibold text-slate-300">Scenic Drives</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ITINERARY PREVIEW CARDS -->
+        <div class="w-full mb-12">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-white mb-2">Trip Highlights</h2>
+                <p class="text-slate-400 text-sm">Here is a sneak peek of what we'll be doing!</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="glass-card rounded-2xl p-5 flex flex-col justify-between">
+                    <div>
+                        <div class="h-40 rounded-xl bg-gradient-to-tr from-cyan-900 to-blue-600 mb-4 overflow-hidden relative flex items-center justify-center group">
+                            <!-- Visual representation -->
+                            <i class="fa-solid fa-mountain-sun text-6xl text-cyan-200/40 group-hover:scale-110 transition-transform duration-500"></i>
+                            <div class="absolute top-3 left-3 bg-black/40 backdrop-blur-md px-3 py-1 rounded-full text-xs font-semibold text-cyan-300">
+                                Day 1 - 2
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Gangtok & MG Marg</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-4">
+                            Stroll along the vibrant MG Marg, explore cozy hill cafes, try authentic Thukpa, and soak in the evening mountain breeze.
+                        </p>
+                    </div>
+                    <span class="text-xs font-semibold text-cyan-400 flex items-center gap-1">
+                        <i class="fa-solid fa-utensils"></i> Food & Cafe Culture
+                    </span>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass-card rounded-2xl p-5 flex flex-col justify-between">
+                    <div>
+                        <div class="h-40 rounded-xl bg-gradient-to-tr from-blue-900 to-indigo-600 mb-4 overflow-hidden relative flex items-center justify-center group">
+                            <!-- Visual representation -->
+                            <i class="fa-solid fa-water text-6xl text-blue-200/40 group-hover:scale-110 transition-transform duration-500"></i>
+                            <div class="absolute top-3 left-3 bg-black/40 backdrop-blur-md px-3 py-1 rounded-full text-xs font-semibold text-amber-300">
+                                Day 3
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Tsomgo Lake & Nathula Pass</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-4">
+                            Witness the crystal-clear glacial lake at 12,400 ft and visit the historic Indo-China border pass surrounded by snow.
+                        </p>
+                    </div>
+                    <span class="text-xs font-semibold text-amber-400 flex items-center gap-1">
+                        <i class="fa-solid fa-snowflake"></i> Glacial Heights
+                    </span>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass-card rounded-2xl p-5 flex flex-col justify-between">
+                    <div>
+                        <div class="h-40 rounded-xl bg-gradient-to-tr from-rose-900 to-purple-600 mb-4 overflow-hidden relative flex items-center justify-center group">
+                            <!-- Visual representation -->
+                            <i class="fa-solid fa-spa text-6xl text-rose-200/40 group-hover:scale-110 transition-transform duration-500"></i>
+                            <div class="absolute top-3 left-3 bg-black/40 backdrop-blur-md px-3 py-1 rounded-full text-xs font-semibold text-rose-300">
+                                Day 4 - 5
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Yumthang Valley of Flowers</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-4">
+                            Drive through Zero Point, hot springs, and serene pine forests. Unwind with hot tea while staring at magnificent peaks.
+                        </p>
+                    </div>
+                    <span class="text-xs font-semibold text-rose-400 flex items-center gap-1">
+                        <i class="fa-solid fa-camera"></i> Scenic Perfection
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- RSVP INTERACTIVE SECTION -->
+        <div id="rsvpSection" class="w-full max-w-2xl glass-panel rounded-3xl p-8 md:p-10 text-center relative overflow-hidden shadow-2xl border-2 border-rose-500/30">
+            
+            <div id="rsvpPromptState">
+                <div class="w-16 h-16 rounded-2xl bg-rose-500/20 text-rose-400 mx-auto flex items-center justify-center text-3xl mb-4">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-3">Will you come, Ahzam?</h2>
+                <p class="text-slate-300 mb-8 max-w-md mx-auto text-sm sm:text-base">
+                    The mountains are calling! Choose your answer wisely... (Hint: Only one option actually works! 😉)
+                </p>
+
+                <!-- Interactive Buttons Container -->
+                <div id="buttonArea" class="relative min-h-[120px] flex flex-col sm:flex-row items-center justify-center gap-6">
+                    
+                    <!-- YES BUTTON -->
+                    <button id="yesBtn" onclick="handleYes()" class="px-8 py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-bold text-lg shadow-xl hover:shadow-emerald-500/25 hover:scale-105 active:scale-95 transition-all flex items-center gap-2 z-20">
+                        <span>Yes, I'm in! 🏔️🎉</span>
+                    </button>
+
+                    <!-- NO BUTTON (DODGES ON HOVER/TAP) -->
+                    <button id="noBtn" onmouseover="dodgeNoButton()" onclick="dodgeNoButton()" class="px-8 py-4 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-lg border border-slate-600 shadow-md transition-all duration-200 z-10 sm:relative">
+                        <span>No 😢</span>
+                    </button>
+
+                </div>
+
+                <p id="dodgeHint" class="text-xs text-rose-400 font-medium mt-4 opacity-0 transition-opacity">
+                    <i class="fa-solid fa-ghost mr-1"></i> <span id="dodgeMessage">Nice try! You can't say no to Sikkim!</span>
+                </p>
+            </div>
+
+            <!-- SUCCESS CONFIRMATION STATE (Hidden initially) -->
+            <div id="rsvpSuccessState" class="hidden py-6">
+                <div class="w-24 h-24 rounded-full bg-emerald-500/20 text-emerald-400 mx-auto flex items-center justify-center text-5xl mb-6 border-2 border-emerald-500/40 animate-bounce">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <h2 class="text-4xl sm:text-5xl font-extrabold text-white mb-4">PACK YOUR BAGS! 🧳🎒</h2>
+                <p class="text-xl text-amber-300 font-semibold mb-6">
+                    Sikkim awaits you, Ahzam! It's officially happening! 🎉
+                </p>
+                <p class="text-slate-300 max-w-md mx-auto text-sm leading-relaxed mb-8">
+                    We've booked your spot for hot momos, epic mountain views, and memories that will last a lifetime. Get ready for the adventure!
+                </p>
+                <div class="inline-flex items-center gap-3 px-6 py-3 rounded-xl bg-white/10 text-white font-medium text-sm">
+                    <i class="fa-solid fa-calendar-check text-emerald-400"></i> Trip details & itinerary will be shared in WhatsApp group!
+                </div>
+            </div>
+
+        </div>
+
+        <!-- FOOTER -->
+        <footer class="mt-16 text-center text-slate-500 text-xs">
+            Designed with ❤️ for Ahzam's Sikkim Expedition • See you in the Himalayas!
+        </footer>
+
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // --- AUDIO PLAYER LOGIC ---
+        const bgAudio = document.getElementById('bgAudio');
+        const playIcon = document.getElementById('playIcon');
+        const vinylDisk = document.getElementById('vinylDisk');
+        const statusBadge = document.getElementById('playingStatusBadge');
+        const eqBars = document.querySelectorAll('.eq-bar');
+        let isPlaying = false;
+        let eqInterval = null;
+
+        // Custom Web Audio API Synth Synthesizer as fallback for "Mann Jogiya" Vibe
+        let audioCtx, oscillator, gainNode;
+
+        function toggleAudio() {
+            if (isPlaying) {
+                pauseAudio();
+            } else {
+                playAudio();
+            }
+        }
+
+        function playAudio() {
+            bgAudio.play().then(() => {
+                onPlaySuccess();
+            }).catch(err => {
+                console.log("Stream play fallback to Web Audio Ambient Chords:", err);
+                startAmbientSynth();
+                onPlaySuccess();
+            });
+        }
+
+        function onPlaySuccess() {
+            isPlaying = true;
+            playIcon.className = "fa-solid fa-pause";
+            vinylDisk.classList.remove('vinyl-paused');
+            statusBadge.innerText = "Playing";
+            statusBadge.className = "text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30";
+            
+            // Start Equalizer Animation
+            eqInterval = setInterval(() => {
+                eqBars.forEach(bar => {
+                    const randomHeight = Math.floor(Math.random() * 12) + 4;
+                    bar.style.height = `${randomHeight}px`;
+                });
+            }, 150);
+        }
+
+        function pauseAudio() {
+            bgAudio.pause();
+            if (audioCtx) {
+                audioCtx.suspend();
+            }
+            isPlaying = false;
+            playIcon.className = "fa-solid fa-play ml-1";
+            vinylDisk.classList.add('vinyl-paused');
+            statusBadge.innerText = "Paused";
+            statusBadge.className = "text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-slate-700 text-slate-300";
+            
+            clearInterval(eqInterval);
+            eqBars.forEach(bar => bar.style.height = '4px');
+        }
+
+        // Web Audio Synth Fallback (Peaceful Himalayan acoustic ambient chords)
+        function startAmbientSynth() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                // Simple soft chord synthesizer loop
+                gainNode = audioCtx.createGain();
+                gainNode.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                gainNode.connect(audioCtx.destination);
+            } else {
+                audioCtx.resume();
+            }
+        }
+
+        // --- PLAYFUL RSVP DODGING LOGIC FOR "NO" BUTTON ---
+        const noBtn = document.getElementById('noBtn');
+        const dodgeHint = document.getElementById('dodgeHint');
+        const dodgeMessage = document.getElementById('dodgeMessage');
+        let dodgeCount = 0;
+
+        const playfulPrompts = [
+            "Nice try! You can't say no to Sikkim! 😉",
+            "Are you sure? Moms are waiting! 🥟",
+            "The mountains miss you, Ahzam! Try 'Yes'!",
+            "Button malfunction! It only accepts 'Yes'! 🚀",
+            "Oops, slippery button! 🏔️",
+            "Resistance is futile! Pack your bags!"
+        ];
+
+        function dodgeNoButton() {
+            dodgeCount++;
+            
+            // Select random message
+            const randomMsg = playfulPrompts[Math.floor(Math.random() * playfulPrompts.length)];
+            dodgeMessage.innerText = randomMsg;
+            dodgeHint.style.opacity = '1';
+
+            // Calculate random relative offset for dodging
+            const randomX = (Math.random() - 0.5) * 220; // -110px to 110px
+            const randomY = (Math.random() - 0.5) * 120;  // -60px to 60px
+
+            noBtn.style.position = 'relative';
+            noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+        }
+
+        // --- YES BUTTON CELEBRATION LOGIC ---
+        function handleYes() {
+            // Trigger Confetti explosion
+            triggerConfetti();
+
+            // Auto play music on YES if not playing
+            if (!isPlaying) {
+                playAudio();
+            }
+
+            // Switch view from Prompt to Celebration
+            document.getElementById('rsvpPromptState').classList.add('hidden');
+            const successState = document.getElementById('rsvpSuccessState');
+            successState.classList.remove('hidden');
+
+            // Fire extra confetti bursts
+            setTimeout(triggerConfetti, 400);
+            setTimeout(triggerConfetti, 800);
+        }
+
+        function triggerConfetti() {
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#fbbf24', '#f43f5e', '#38bdf8', '#34d399', '#a855f7']
+                });
+            }
+        }
+    </script>
+</body>
+</html>
